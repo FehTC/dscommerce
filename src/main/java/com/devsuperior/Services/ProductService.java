@@ -39,18 +39,34 @@ public class ProductService{
 		
 		// Preparamos o objeto copiando os dados do dto
 		Product entity = new Product();
+		copyDtoToEntity(dto,entity);		
+		// Salvamos no banco dados
+		entity = repository.save(entity);
+		// Retornamos o objeto salvo e atualizado
+		return new ProductDTO(entity);
+	}
+	
+	@Transactional
+	public ProductDTO update(Long id, ProductDTO dto) {
+		
+		// Preparamos o objeto copiando os dados do dto
+		Product entity = repository.getReferenceById(id);
+		copyDtoToEntity(dto,entity);
+		// Salvamos no banco dados
+		entity = repository.save(entity);
+		// Retornamos o objeto salvo e atualizado
+		return new ProductDTO(entity);
+	}
+
+	private void copyDtoToEntity(ProductDTO dto, Product entity) {
+		// TODO Auto-generated method stub
 		entity.setName(dto.getName());
 		entity.setDescription(dto.getDescription());
 		entity.setPrice(dto.getPrice());
 		entity.setImgUrl(dto.getImgUrl());
 		
-		
-		
-		// Salvamos no banco dados
-		entity = repository.save(entity);
-		
-		// Retornamos o objeto salvo e atualizado
-		return new ProductDTO(entity);
 	}
+	
+	
 	
 }
