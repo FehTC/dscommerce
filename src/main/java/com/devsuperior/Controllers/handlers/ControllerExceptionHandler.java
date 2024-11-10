@@ -14,7 +14,7 @@ import com.devsuperior.Services.exceptions.ResourceNotFoundException;
 import com.devsuperior.dto.CustomError;
 
 import com.devsuperior.dto.ValidationError;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ControllerExceptionHandler{
