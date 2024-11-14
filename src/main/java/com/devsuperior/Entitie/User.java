@@ -2,45 +2,53 @@ package com.devsuperior.Entitie;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
-@Table(name="tb_user")
+@Table(name = "tb_user")
 @EntityScan
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
-	
+
 	@Column(unique = true) // Para que o valor de e-mail seja único
 	private String email;
 	private String phone;
 	private LocalDate birthDate;
 	private String password;
-	
+
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
-	
-	
-	
-	public  User() {
-		
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+
+	public User() {
+
 	}
-	
-	public User(Long id, String name,String email, String phone, LocalDate birthDate, String password) {
+
+	public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -106,6 +114,9 @@ public class User {
 	public List<Order> getOrders() {
 		return orders;
 	}
-	
-	
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
 }
