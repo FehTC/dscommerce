@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.Services.ProductService;
 import com.devsuperior.dto.ProductDTO;
+import com.devsuperior.dto.ProductMinDTO;
 
 
 @RestController
@@ -45,8 +46,8 @@ public class ProductController {
     }
 
    	@GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(name="name",defaultValue="") String name,Pageable pageable) { 
-		Page<ProductDTO> dto = service.findAll(name,pageable);									
+    public ResponseEntity<Page<ProductMinDTO>> findAll(@RequestParam(name="name",defaultValue="") String name,Pageable pageable) { 
+		Page<ProductMinDTO> dto = service.findAll(name,pageable);									
    		return ResponseEntity.ok(dto);
         
     }
