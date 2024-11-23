@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.Entitie.Category;
 import com.devsuperior.Entitie.Product;
 import com.devsuperior.Repositories.ProductRepository;
 import com.devsuperior.Services.exceptions.DataBaseException;
 import com.devsuperior.Services.exceptions.ResourceNotFoundException;
+import com.devsuperior.dto.CategoryDTO;
 import com.devsuperior.dto.ProductDTO;
 import com.devsuperior.dto.ProductMinDTO;
 
@@ -95,6 +97,14 @@ public class ProductService{
 		entity.setDescription(dto.getDescription());
 		entity.setPrice(dto.getPrice());
 		entity.setImgUrl(dto.getImgUrl());
+		
+		entity.getCategories().clear(); // Limpa a lista que tinha e insere as nova categorias que enviamos abaixo
+		
+		for(CategoryDTO catDto: dto.getCategories()) {
+			Category cat = new Category();
+			cat.setId(catDto.getId());
+			entity.getCategories().add(cat);
+		}
 		
 	}
 	

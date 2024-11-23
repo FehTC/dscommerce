@@ -1,10 +1,15 @@
 package com.devsuperior.dto;
 
-import com.devsuperior.Entitie.Product;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+
+import com.devsuperior.Entitie.Category;
+import com.devsuperior.Entitie.Product;
 
 public class ProductDTO {
 	
@@ -24,7 +29,11 @@ public class ProductDTO {
 	
 	private String imgUrl;
 	
+	@NotEmpty(message = "Deve ter pelo menos uma categoria") // Essa anotation indica que o campo de categoria não
+	private List<CategoryDTO> categories = new ArrayList<>();// pode ser vazio.
 	
+	
+
 	public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
 		this.id = id;
 		this.name = name;
@@ -39,6 +48,9 @@ public class ProductDTO {
 		description = entity.getDescription();
 		price = entity.getPrice();
 		imgUrl = entity.getImgUrl();
+		for(Category cat: entity.getCategories()) {
+			categories.add(new CategoryDTO(cat));
+		}
 	}
 
 	public Long getId() {
@@ -59,6 +71,10 @@ public class ProductDTO {
 
 	public String getImgUrl() {
 		return imgUrl;
+	}
+	
+	public List<CategoryDTO> getCategories() {
+		return categories;
 	}
 	
 	
