@@ -8,7 +8,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.Entitie.Category;
@@ -77,7 +76,7 @@ public class ProductService{
 	
 	}
 
-	@Transactional(propagation = Propagation.SUPPORTS)
+	@Transactional
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
