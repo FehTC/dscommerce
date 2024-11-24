@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -16,18 +17,20 @@ public class ProductDTO {
 	// Atributos copiados do objeto Product
 	private Long id;
 	
-	@Size(min = 3,max=80,message="Nome precisa ter de 3 a 80 caracteres")
 	@NotBlank(message ="Campo requerido")
+	@Size(min = 3,max=80,message="Nome precisa ter de 3 a 80 caracteres")
 	private String name;
 	
-	@Size(min = 10,message="Descrição precisa ter no mínimo 10 caracteres")
 	@NotBlank(message ="Campo requerido")
+	@Size(min = 10,message="Descrição precisa ter no mínimo 10 caracteres")
 	private String description;
 	
+	@NotNull(message = "Campo requerido")
 	@Positive(message="O preço deve ser positivo")
 	private Double price;
 	
 	private String imgUrl;
+	
 	
 	@NotEmpty(message = "Deve ter pelo menos uma categoria") // Essa anotation indica que o campo de categoria não
 	private List<CategoryDTO> categories = new ArrayList<>();// pode ser vazio.
