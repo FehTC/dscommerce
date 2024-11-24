@@ -31,7 +31,7 @@ public class OrderController {
 	
     
     // Para adaptar um parâmetro na rota, utilizamos o @GetMapping conforme abaixo:
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
 	@GetMapping(value = "/{id}")
     public ResponseEntity<OrderDTO> findById( @PathVariable  Long id) { // @PathVariable = Configurando o parâmetro de rota para casar com o ID
 														// do parâmetro do método

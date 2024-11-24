@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.devsuperior.Services.exceptions.DataBaseException;
+import com.devsuperior.Services.exceptions.ForbiddenException;
 import com.devsuperior.Services.exceptions.ResourceNotFoundException;
 import com.devsuperior.dto.CustomError;
 
@@ -48,6 +49,14 @@ public class ControllerExceptionHandler{
 		}
 		
 		return ResponseEntity.status(status).body(err);
+		
+	}
+	
+	@ExceptionHandler(ForbiddenException.class) // é uma anotation para interceptar esse tipo de exceção.
+	public ResponseEntity<CustomError> forbidden(ForbiddenException e, HttpServletRequest request){
+		HttpStatus status = HttpStatus.FORBIDDEN; // Gera o código 403 (Forbidden)
+		CustomError err = new CustomError(Instant.now(),status.value(),e.getMessage(),request.getRequestURI()); 
+		return ResponseEntity.status(status).body(err); // Retorna a resposta com o erro 403
 		
 	}
 
