@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.devsuperior.Entitie.Order;
 import com.devsuperior.Entitie.OrderItem;
 import com.devsuperior.Entitie.OrderStatus;
@@ -17,7 +19,16 @@ public class OrderDTO {
 	private ClientDTO client;
 	private PaymentDTO payment;
 	
+	@NotEmpty(message = "Deve ter pelo menos um item") // Essa anotation indica que o campo de categoria não
 	private List<OrderItemDTO> items = new ArrayList<>();
+	
+	public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment) {
+		this.id = id;
+		this.moment = moment;
+		this.status = status;
+		this.client = client;
+		this.payment = payment;
+	}
 
 	public OrderDTO(Order entity) {
 		this.id = entity.getId();
